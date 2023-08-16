@@ -1,9 +1,9 @@
-# install.packages("dplyr")
-# install.packages("data.table")
-# install.packages("bit64")
-# install.packages("openxlsx")
-# install.packages("tidyr")
-# install.packages("stringr")
+install.packages("dplyr")
+install.packages("data.table")
+install.packages("bit64")
+install.packages("openxlsx")
+install.packages("tidyr")
+install.packages("stringr")
 
 
 library(dplyr)
@@ -14,21 +14,32 @@ library(tidyr)
 library(stringr)
 
 
-data_fname = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/mart_djy_03.txt"
+# data_fname = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/mart_djy_03.txt"
 
 # or 
 
-wd = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/" # woogy114
+# wd = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/" # woogy114
 wd = "~/Dropbox/Sustainable AI/Data/" # alanbseo 
 
-setwd(wd) # 
+setwd(wd) # set working directory 
 
 getwd()
 
 
 # buildingregister <- fread(file = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/mart_djy_03.txt",header = FALSE,sep = "|" ,encoding = "unknown")
-buildingregister <- data.table::fread(file = "mart_djy_03.txt",header = FALSE,sep = "|" ,encoding = "unknown")
 
+# buildingregister <- data.table::fread(file = "mart_djy_03.txt",header = FALSE,sep = "|" ,encoding = "unknown")
+
+ 
+buildingregister <- read.csv("MART_DJY_June2023.csv")
+
+# column names 
+colnames(buildingregister)
+
+# assign new colnames 
+colnames(buildingregister) <- paste0("V", 1:ncol(buildingregister))
+
+colnames(buildingregister)
 
 print(buildingregister)
 buildingregister$year <- str_sub(buildingregister$V61, 1, 4)
@@ -58,11 +69,7 @@ pivot_data <- lapply(pivot_data, function(col) {
 })
 
 # 엑셀 파일로 저장
-write.xlsx(pivot_data, "summarized_data.xlsx")
-##############################################################################################################################################################
-
-buildingregister <- read.csv("D:/국토교통부_건축물대장_표제부+(2023년+06월)/MART_DJY_202306.csv")
-print(buildingregister)
-
+# write.xlsx(pivot_data, "summarized_data.xlsx")
+ 
 
 
