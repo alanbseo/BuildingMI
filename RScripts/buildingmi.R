@@ -14,12 +14,9 @@ library(tidyr)
 library(stringr)
 
 
-# data_fname = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/mart_djy_03.txt"
+# read an external R script
+source("WD.R")
 
-# or 
-
-# wd = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/" # woogy114
-wd = "~/Dropbox/Sustainable AI/Data/" # alanbseo 
 
 setwd(wd) # set working directory 
 
