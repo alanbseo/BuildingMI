@@ -1,9 +1,11 @@
-install.packages("dplyr")
-install.packages("data.table")
-install.packages("bit64")
-install.packages("openxlsx")
-install.packages("tidyr")
-install.packages("stringr")
+# install.packages("dplyr")
+# install.packages("data.table")
+# install.packages("bit64")
+# install.packages("openxlsx")
+# install.packages("tidyr")
+# install.packages("stringr")
+
+
 library(dplyr)
 library(data.table)
 library("bit64")
@@ -11,7 +13,23 @@ library(openxlsx)
 library(tidyr)
 library(stringr)
 
-buildingregister <- fread(file = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/mart_djy_03.txt",header = FALSE,sep = "|" ,encoding = "unknown")
+
+data_fname = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/mart_djy_03.txt"
+
+# or 
+
+wd = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/" # woogy114
+wd = "~/Dropbox/Sustainable AI/Data/" # alanbseo 
+
+setwd(wd) # 
+
+getwd()
+
+
+# buildingregister <- fread(file = "D:/국토교통부_건축물대장_표제부+(2023년+06월)/mart_djy_03.txt",header = FALSE,sep = "|" ,encoding = "unknown")
+buildingregister <- data.table::fread(file = "mart_djy_03.txt",header = FALSE,sep = "|" ,encoding = "unknown")
+
+
 print(buildingregister)
 buildingregister$year <- str_sub(buildingregister$V61, 1, 4)
 
