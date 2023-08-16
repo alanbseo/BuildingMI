@@ -1,9 +1,9 @@
-install.packages("dplyr")
-install.packages("data.table")
-install.packages("bit64")
-install.packages("openxlsx")
-install.packages("tidyr")
-install.packages("stringr")
+# install.packages("dplyr")
+# install.packages("data.table")
+# install.packages("bit64")
+# install.packages("openxlsx")
+# install.packages("tidyr")
+# install.packages("stringr")
 
 
 library(dplyr)
@@ -15,10 +15,10 @@ library(stringr)
 
 
 # read an external R script
-source("WD.R")
+source("RScripts/WD.R")
 
 
-setwd(wd) # set working directory 
+setwd(path_data) # set working directory (to the folder where data files stored)
 
 getwd()
 
@@ -28,7 +28,21 @@ getwd()
 # buildingregister <- data.table::fread(file = "mart_djy_03.txt",header = FALSE,sep = "|" ,encoding = "unknown")
 
  
-buildingregister <- read.csv("MART_DJY_June2023.csv")
+# too slow (126 sec)
+# system.time({
+  # buildingregister <- read.csv("MART/MART_DJY_June2023.csv")
+# })
+
+# Use Apache Parquet 
+# install.packages("arrow")
+library(arrow)
+
+system.time({ # 0.7 sec
+buildingregister_df = arrow::read_parquet("MART/MART_DJY_June2023.parquet")
+})
+
+# base::data.frame to data.table::data.table 
+buildingregister = data.table(buildingregister_df)
 
 # column names 
 colnames(buildingregister)
